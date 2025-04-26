@@ -3,6 +3,7 @@ import Alert from '../components/Alert.tsx'
 import Input from '../components/Input.tsx'
 import {Formik,Form} from 'formik'
 import * as Yup from 'yup';
+import useAuthStore from "../store/authStore"
 
 const validationSchema=Yup.object({
     email: Yup.string()
@@ -14,7 +15,8 @@ const validationSchema=Yup.object({
   });
 
 const LoginPage=()=>{
-    const error="error";const clearError=()=>{};const handleSubmit=()=>{}
+
+    const {login, authenticated, error, clearError} = useAuthStore()
 
     return <>
         <div className="min-h-screen flex items-center justify-center bg-ultraLight py-12 px-4">
@@ -30,26 +32,17 @@ const LoginPage=()=>{
                         </Link>
                     </p>
                 </div>
-                {error && (
-                    <Alert
-                        type="error"
-                        message={error}
-                        onClose={clearError}
-                    />
-                )}
-<Formik
-       initialValues={{
-         email: '',
-         password:''
-       }}
-       validationSchema={validationSchema}
-       onSubmit={(values, actions) => {
-         setTimeout(() => {
-           alert(JSON.stringify(values, null, 2));
-           
-         }, 1000);
-       }}
-     >
+                
+                <Formik
+                    initialValues={{
+                        email: '',
+                        password:''
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={(values, actions) => {
+                        login(values)
+                    }}
+                >
                 <Form className="mt-8 space-y-5" >
                     <Input
                         name="email"
@@ -61,50 +54,7 @@ const LoginPage=()=>{
                         type="password"
                         label="Password"
                     />
-                {/* <div className="rounded-md shadow-sm -space-y-px">
-                    <div>
-                    <label htmlFor="email" className="sr-only">
-                        Email address
-                    </label>
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="input rounded-t-md rounded-b-none"
-                        placeholder="Email address"
-                    />
-                    </div>
-                    <div>
-                    <label htmlFor="password" className="sr-only">
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="input rounded-t-none rounded-b-md"
-                        placeholder="Password"
-                    />
-                    </div>
-                </div>
                 
-                <div>
-                    <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="btn-primary w-full"
-                    >
-                    {isLoading ? 'Signing in...' : 'Sign in'}
-                    </button>
-                </div> */}
                 <button 
                     className="block w-full rounded bg-blue-600 px-3 py-1.5 font-semibold text-white shadow-xs hover:bg-blue-500 cursor-pointer" 
                     type="submit"
@@ -113,6 +63,13 @@ const LoginPage=()=>{
                     </button>
                 </Form>
                 </Formik>
+                {error && (
+                    <Alert
+                        type="error"
+                        message={error}
+                        onClose={clearError}
+                    />
+                )}
             </div>
         </div>
     </>
