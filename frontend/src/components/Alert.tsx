@@ -25,7 +25,7 @@ const Alert: React.FC<AlertProps> = ({ type, message, onClose }) => {
 
   return (
     <div className={`rounded-md p-4 mb-4 ${typeClasses[type]}`}>
-      <div className="flex">
+      <div className="flex items-center">
         <div className="flex-1">
           <p className="font-medium">{message}</p>
         </div>

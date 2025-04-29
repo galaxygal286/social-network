@@ -1,5 +1,7 @@
 const HomePage=()=>{
-    return <>hello world</>
+    return <>
+        
+    </>
 }
 
 export default HomePage

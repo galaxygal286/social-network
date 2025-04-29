@@ -1,14 +1,19 @@
+import StartPage from "./pages/StartPage.tsx"
 import HomePage from "./pages/HomePage.tsx"
 import LoginPage from "./pages/LoginPage.tsx"
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 import {
     createBrowserRouter,
   } from "react-router";
-import RegisterPage from "./pages/RegisterPage.tsx";
 
 const router = createBrowserRouter([
     {
-      path: "/hello",
+      path: "/",
+      Component: StartPage,
+    },  
+    {
+      path: "/home",
       Component: HomePage,
     },
     {

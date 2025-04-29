@@ -4,7 +4,8 @@ import Input from '../components/Input.tsx'
 import {Formik,Form} from 'formik'
 import * as Yup from 'yup';
 import useAuthStore from "../store/authStore"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import NexIcon from "../components/NexIcon.tsx";
 
 const validationSchema=Yup.object({
     email: Yup.string()
@@ -21,7 +22,7 @@ const LoginPage=()=>{
     const navigate = useNavigate();
 
     const location = useLocation();
-    const successMessage = location.state?.successMessage;
+    const [successMessage,setSuccessMessage]=useState(location.state?.successMessage)
 
     useEffect(() => {
         if (authenticated) {
@@ -32,6 +33,11 @@ const LoginPage=()=>{
     return <>
         <div className="min-h-screen flex items-center justify-center bg-ultraLight py-12 px-4">
             <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow">
+                <div className="flex justify-center pb-6">
+                    <Link to="/" className="w-full h-full max-w-20 max-h-20">
+                        <NexIcon className="w-full h-full"/>
+                    </Link>
+                </div>
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Sign in to your account
@@ -50,7 +56,7 @@ const LoginPage=()=>{
                         password:''
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values, actions) => {
+                    onSubmit={(values) => {
                         login(values)
                     }}
                 >
@@ -78,7 +84,7 @@ const LoginPage=()=>{
                     <Alert
                         type="success"
                         message={successMessage}
-                        onClose={clearError}
+                        onClose={()=>setSuccessMessage(null)}
                     />
                 )}
                 {error && (
