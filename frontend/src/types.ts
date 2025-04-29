@@ -24,3 +24,9 @@ export interface LoginCredentials {
     cover_image_url?: string
     created_at: string
   }
+
+  export interface RegisterData {
+    name: string
+    email: string
+    password: string
+  }

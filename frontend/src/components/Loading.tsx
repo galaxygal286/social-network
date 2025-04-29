@@ -1,16 +1,14 @@
 import { createPortal } from "react-dom";
-import { useLoadingStore } from "../store/useLoadingStore";
+import useLoadingStore from "../store/loadingStore";
 
 const Loading=()=>{
-  const { loading } = useLoadingStore();
+  const { loading } = useLoadingStore()
 
   if (!loading) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="flex flex-col items-center">
-        
-      </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/50">
+      <div className="w-16 h-16 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
     </div>,
     document.body
   );

@@ -1,9 +1,10 @@
-import {Link} from "react-router"
+import {Link, useLocation, useNavigate} from "react-router"
 import Alert from '../components/Alert.tsx'
 import Input from '../components/Input.tsx'
 import {Formik,Form} from 'formik'
 import * as Yup from 'yup';
 import useAuthStore from "../store/authStore"
+import { useEffect } from "react";
 
 const validationSchema=Yup.object({
     email: Yup.string()
@@ -17,6 +18,16 @@ const validationSchema=Yup.object({
 const LoginPage=()=>{
 
     const {login, authenticated, error, clearError} = useAuthStore()
+    const navigate = useNavigate();
+
+    const location = useLocation();
+    const successMessage = location.state?.successMessage;
+
+    useEffect(() => {
+        if (authenticated) {
+          navigate('/');
+        }
+      }, [authenticated, navigate]);
 
     return <>
         <div className="min-h-screen flex items-center justify-center bg-ultraLight py-12 px-4">
@@ -63,6 +74,13 @@ const LoginPage=()=>{
                     </button>
                 </Form>
                 </Formik>
+                {successMessage && (
+                    <Alert
+                        type="success"
+                        message={successMessage}
+                        onClose={clearError}
+                    />
+                )}
                 {error && (
                     <Alert
                         type="error"

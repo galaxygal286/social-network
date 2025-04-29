@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { LoginCredentials, AuthResponse,User,  } from '../types';
+import { LoginCredentials, AuthResponse,User, RegisterData  } from '../types';
 import authService from '../services/authService'
 import useLoadingStore from './loadingStore'
 
@@ -10,6 +10,7 @@ interface AuthState {
     authenticated: boolean
     error: string | null
     login: (credentials: LoginCredentials) => Promise<void>
+    register: (credentials: RegisterData) => Promise<boolean>
     clearError: () => void
   }
 
@@ -43,7 +44,24 @@ const useAuthStore=create<AuthState>((set)=>({
         hideLoading()
       }
     },
-    
+    register: async (data: RegisterData) => {
+      const { showLoading, hideLoading } = useLoadingStore.getState();
+      try {
+        showLoading()
+        set({ error: null });
+        const response: AuthResponse = await authService.register(data);
+        
+        localStorage.setItem('token', response.token);
+        return true;
+      } catch (error: any) {
+        set({
+          error: error.response?.data?.message || 'Registration failed',
+        });
+        return false;
+      }finally{
+        hideLoading()
+      }
+    },
     
     
     clearError: () => set({ error: null }),

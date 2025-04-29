@@ -18,11 +18,9 @@ const AuthValidator={
                 } 
             },
             password: { 
-                isLength: { 
-                    options: { 
-                        min: 8 
-                    } 
-                } 
+                notEmpty:{
+                    errorMessage:"Password is required"
+                },
             },
         }),
     login:checkSchema({
@@ -35,11 +33,9 @@ const AuthValidator={
             } 
         },
         password: { 
-            isLength: { 
-                options: { 
-                    min: 8 
-                } 
-            } 
+            notEmpty:{
+                errorMessage:"Password is required"
+            },
         },
     })
 }

@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import Loading from './components/Loading.tsx';
+import router from './routes.ts'
+
+import {
+  RouterProvider,
+} from "react-router";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      hello world
+      <RouterProvider router={router}/>
+      <Loading/>
     </>
   )
 }

@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage.tsx"
 import {
     createBrowserRouter,
   } from "react-router";
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     {
       path: "/login",
       Component: LoginPage,
+    },
+    {
+      path: "/register",
+      Component: RegisterPage,
     },
   ]);
   export default router
