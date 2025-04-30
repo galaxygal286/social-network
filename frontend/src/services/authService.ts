@@ -7,8 +7,8 @@ const authService = {
       return response.data;
     },
     
-    register: async (data: RegisterData): Promise<AuthResponse> => {
-      const response = await api.post<AuthResponse>('/auth/register', data);
+    register: async (data: RegisterData): Promise<void> => {
+      const response = await api.post<void>('/auth/register', data);
       return response.data;
     },
     

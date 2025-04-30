@@ -1,40 +1,67 @@
-import { HomeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import { BellIcon, EnvelopeIcon, HomeIcon, MagnifyingGlassIcon, UserIcon } from "@heroicons/react/24/outline"
 import NexIcon from "./NexIcon"
+import { Link, NavLink } from "react-router"
+
+const navItems=[
+    {
+        name:"Home",
+        path:"/home",
+        icon:<HomeIcon className="w-6 h-6"/>
+    },
+    {
+        name:"Explore",
+        path:"/explore",
+        icon:<MagnifyingGlassIcon className="w-6 h-6"/>
+    },
+    {
+        name:"Notifications",
+        path:"/notifications",
+        icon:<BellIcon className="w-6 h-6"/>
+    },
+    {
+        name:"Messages",
+        path:"/messages",
+        icon:<EnvelopeIcon className="w-6 h-6"/>
+    },
+    {
+        name:"Profile",
+        path:"/profile",
+        icon:<UserIcon className="w-6 h-6"/>
+    }
+]
+
+const activeLink=({ isActive }:any) =>
+[
+  isActive ? "bg-gray-200" : "",
+  "px-4 py-3 duration-100 ease-in-out flex itens-center hover:bg-gray-200 rounded-full"
+].join(" ")
 
 const Header=()=>{
     return <>
-        <div className="w-full flex flex-col space-between h-full">
+        <header className="w-full flex flex-col space-between h-full">
             <div>
-                <div>
+                <Link to="/home" className="block px-4">
                     <NexIcon className="w-20 h-20"/>
-                </div>
+                </Link>
                 <nav className="flex flex-col text-xl">
-                    <a className="py-2 flex" href="#">
-                        <div className="px-4 py-3 duration-100 ease-in-out flex itens-center hover:bg-gray-200 rounded-full">
-                            <div className="flex items-center">
-                                <HomeIcon className="w-6 h-6"/>
-                            </div>
-                            <div className="px-3">
-                                Home
-                            </div>
+                    {navItems.map((item)=>(<>
+                        <div className="py-1 flex">
+                            <NavLink className={activeLink} to={item.path}>
+                                <div className="flex items-center">
+                                    {item.icon}
+                                </div>
+                                <div className="px-3">
+                                    {item.name}
+                                </div>
+                            </NavLink>
                         </div>
-                    </a>
-                    <a className="py-2 flex" href="#">
-                        <div className="px-4 py-3 duration-100 ease-in-out flex itens-center hover:bg-gray-200 rounded-full">
-                            <div className="flex items-center">
-                                <MagnifyingGlassIcon className="w-6 h-6"/>
-                            </div>
-                            <div className="px-3">
-                                Explore
-                            </div>
-                        </div>
-                    </a>
+                    </>))}
                 </nav>
             </div>
             <div>
 
             </div>
-        </div>
+        </header>
     </>
 }
 

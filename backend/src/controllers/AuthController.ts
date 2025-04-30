@@ -45,8 +45,15 @@ const AuthController={
         )
         res.json({
             token:token,
-            name:user.name,
-            email:user.email,
+            user:{
+                id:user.id,
+                name:user.name,
+                email:user.email,
+                bio:user.bio,
+                profile_image_url:user.profile_image_url,
+                cover_image_url:user.cover_image_url,
+                created_at:user.created_at,
+            }
 
         })
     })

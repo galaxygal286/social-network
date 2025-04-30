@@ -24,7 +24,7 @@ const RegisterPage=()=>{
 
     useEffect(() => {
         if (authenticated) {
-          navigate('/');
+          navigate('/home');
         }
       }, [authenticated, navigate]);
 

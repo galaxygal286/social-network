@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import {persist} from 'zustand/middleware'
 import { LoginCredentials, AuthResponse,User, RegisterData  } from '../types';
 import authService from '../services/authService'
 import useLoadingStore from './loadingStore'
@@ -14,57 +15,66 @@ interface AuthState {
     clearError: () => void
   }
 
-const useAuthStore=create<AuthState>((set)=>({
-    user: null,
-    token: null,
-    authenticated: false,
-    error: null,
-    
-    login: async (credentials: LoginCredentials) => {
-      const { showLoading, hideLoading } = useLoadingStore.getState();
-      try {
-        showLoading();
-        set({ 
-          error: null 
-        });
-        const data: AuthResponse = await authService.login(credentials);
-        
-        localStorage.setItem('token', data.token);
-        
-        set({
-          token: data.token,
-          user: data.user,
-          authenticated: true,
-        });
-      } catch (error: any) {
-        set({
-          error: error.response?.data?.message || 'Login failed',
-        });
-      }finally{
-        hideLoading()
-      }
-    },
-    register: async (data: RegisterData) => {
-      const { showLoading, hideLoading } = useLoadingStore.getState();
-      try {
-        showLoading()
-        set({ error: null });
-        const response: AuthResponse = await authService.register(data);
-        
-        localStorage.setItem('token', response.token);
-        return true;
-      } catch (error: any) {
-        set({
-          error: error.response?.data?.message || 'Registration failed',
-        });
-        return false;
-      }finally{
-        hideLoading()
-      }
-    },
-    
-    
-    clearError: () => set({ error: null }),
-}))
+const useAuthStore=create<AuthState>()(
+  persist(
+    (set)=>({
+      user: null,
+      token: null,
+      authenticated: false,
+      error: null,
+      
+      login: async (credentials: LoginCredentials) => {
+        const { showLoading, hideLoading } = useLoadingStore.getState();
+        try {
+          showLoading();
+          set({ 
+            error: null 
+          });
+          const data: AuthResponse = await authService.login(credentials);
+          
+          set({
+            token: data.token,
+            user: data.user,
+            authenticated: true,
+          });
+        } catch (error: any) {
+          set({
+            error: error.response?.data?.message || 'Login failed',
+          });
+        }finally{
+          hideLoading()
+        }
+      },
+      register: async (data: RegisterData) => {
+        const { showLoading, hideLoading } = useLoadingStore.getState();
+        try {
+          showLoading()
+          set({ error: null });
+          await authService.register(data);
+          
+          return true;
+        } catch (error: any) {
+          set({
+            error: error.response?.data?.message || 'Registration failed',
+          });
+          return false;
+        }finally{
+          hideLoading()
+        }
+      },
+      
+      
+      clearError: () => set({ error: null }),
+  }),
+  {
+      name: 'auth-storage',
+      partialize: (state:any) => ({ 
+        user:state.user,
+        token: state.token ,
+        authenticated:state.authenticated
+      }),
+  }
+  )
+)
 
 export default useAuthStore

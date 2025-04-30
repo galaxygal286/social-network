@@ -9,11 +9,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return <>
         <div className='min-h-screen flex justify-center'>
-            <div className='flex w-full max-w-[1200px]'>
-                <div className='w-full max-w-[275px]'>
+            <div className='flex w-full max-w-[1300px] px-6'>
+                <div className='w-full max-w-[275px] border-r border-gray-100 '>
                     <Header/>
                 </div>
-                <main>
+                <main className='w-full max-w-[600px]'>
                     {children}
                 </main>
             </div>
