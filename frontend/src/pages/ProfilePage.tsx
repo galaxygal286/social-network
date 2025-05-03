@@ -4,6 +4,7 @@ import { ArrowLeftIcon, CalendarDaysIcon } from "@heroicons/react/24/outline"
 import useAuthStore from "../store/authStore"
 import { useMemo } from "react"
 import { format } from 'date-fns';
+import ProfileTabs from '../components/ProfileTabs'
 
 const ProfilePage=()=>{
     const navigate=useNavigate()
@@ -42,12 +43,19 @@ const ProfilePage=()=>{
                         <div className="text-xl font-bold">{user?.name}</div>
                         <div className="text-sm text-gray-600">{user?.email}</div>
                     </div>
-                    <div className="flex items-center text-md text-gray-600">
+                    <div className="flex items-center text-md text-gray-600 mb-4">
                         <CalendarDaysIcon className="w-5 h-5 mr-3"/>
                         <span>Joined {formattedJoinDate}</span>
                     </div>
+                    <div className="flex space-x-3 text-gray-500">
+                        <div><span className="font-bold text-black">1</span> following</div>
+                        <div><span className="font-bold text-black">0</span> followers</div>
+                    </div>
                 </div>
                 
+            </div>
+            <div>
+                <ProfileTabs/>
             </div>
             
         </Layout>
