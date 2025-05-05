@@ -2,6 +2,7 @@
 
 @theme {
   --color-primary: #1DA1F2;
-  --color-primary-dark: #0D8ECF;
-  --color-ultra-light: #F7F9FA;
+  --color-dark: #0f1419;
+  --color-dark-disabled:#87898c;
+  --color-dark-hover: rgb(39,44,48);
 }

@@ -1,6 +1,5 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import clsx from 'clsx'
-import { Fragment } from 'react/jsx-runtime'
 
 const ProfileTabs=()=>{
     return <>

@@ -1,8 +1,51 @@
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import clsx from 'clsx'
 import Layout from "../components/Layout"
+import CreatePost from "../components/CreatePost"
+import Post from "../components/Post"
+const posts:any=[]
 
 const HomePage=()=>{
     return <>
-        <Layout>home</Layout>
+        <Layout>
+        <TabGroup>
+            <TabList className='flex'>
+                <Tab className='outline-none flex-1'>
+                {({ hover,selected }) => (
+                    <button
+                    className={clsx('block w-full flex justify-center px-7 cursor-pointer', hover && 'bg-gray-200')}>
+                        <div className={clsx('h-[53px] flex items-center border-[#1d9bf0] font-bold text-gray-400',selected && 'border-b-[4px] text-gray-700')}>
+                            <span>For you</span>
+                        </div>
+                    </button>
+                        )}
+                </Tab>
+                <Tab className='outline-none flex-1'>
+                {({ hover,selected }) => (
+                    <button
+                    className={clsx('block w-full flex justify-center px-7 cursor-pointer', hover && 'bg-gray-200')}>
+                        <div className={clsx('h-[53px] flex items-center border-[#1d9bf0] font-bold text-gray-400',selected && 'border-b-[4px] text-gray-700')}>
+                            <span>Following</span>
+                        </div>
+                    </button>
+                        )}
+                </Tab>
+            </TabList>
+            <TabPanels className='px-7 pt-2'>
+                <TabPanel>
+                    <div>
+                        <CreatePost/>
+                    </div>
+                    <div>
+                        {posts.map((post:any)=><>
+                            <Post/>
+                        </>)}
+                    </div>
+                </TabPanel>
+                <TabPanel></TabPanel>
+            </TabPanels>
+            </TabGroup>
+        </Layout>
     </>
 }
 
