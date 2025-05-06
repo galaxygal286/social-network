@@ -10,7 +10,7 @@ const CreatePost=()=>{
     }
 
     return <>
-        <div className="flex">
+        <div className="flex px-7">
             <div>
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
                     <img className="absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover" src="/default_profile.png" alt="" />

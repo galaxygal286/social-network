@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import Layout from "../components/Layout"
 import CreatePost from "../components/CreatePost"
 import Post from "../components/Post"
-const posts:any=[]
+const posts:any=[0,0,0,0]
 
 const HomePage=()=>{
     return <>
@@ -31,12 +31,12 @@ const HomePage=()=>{
                         )}
                 </Tab>
             </TabList>
-            <TabPanels className='px-7 pt-2'>
+            <TabPanels className='pt-2'>
                 <TabPanel>
                     <div>
                         <CreatePost/>
                     </div>
-                    <div>
+                    <div >
                         {posts.map((post:any)=><>
                             <Post/>
                         </>)}
