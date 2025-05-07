@@ -5,6 +5,7 @@ import useAuthStore from "../store/authStore"
 import { useMemo } from "react"
 import { format } from 'date-fns';
 import ProfileTabs from '../components/ProfileTabs'
+import EditProfile from "../components/EditProfile"
 
 const ProfilePage=()=>{
     const navigate=useNavigate()
@@ -32,11 +33,14 @@ const ProfilePage=()=>{
                 </div>
                 <div className="p-4">
                     <div className="flex justify-between ">
-                        <div className="mt-[-15%] w-[25%] h-auto">
+                        <div className="mt-[-15%] w-[25%] h-auto relative rounded-full overflow-hidden border-5 border-white">
                             <div className="pb-[100%] w-full"></div>
+                            <img src="/default_profile.png" alt="" className="absolute top-0 left-0 w-full h-full object-cover">
+
+                            </img>
                         </div>
                         <div>
-                            <button className="bg-white font-bold rounded-full px-4 py-1.5 outline outline-gray-300 outline-offset-[-1px] hover:bg-gray-100 cursor-pointer">Edit profile</button>
+                            <EditProfile/>
                         </div>
                     </div>
                     <div className="mb-4">
