@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken'
 
 import UserService from "../services/UserService"
 import {ErrorResponse} from "../middlewares/errorHandler"
-import {validationResult} from "express-validator"
 
 const AuthController={
     register:asyncHandler(async (req:Request, res:Response)=>{

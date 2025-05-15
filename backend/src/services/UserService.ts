@@ -11,11 +11,20 @@ class UserService{
         const {name,email,password}=user_data
         const salt=await bcrypt.genSalt(10)
         const hashed_password=await bcrypt.hash(password,salt)
-        const result=await pool.query(`
+        await pool.query(`
             INSERT INTO users (name,email,password)
             VALUES ($1,$2,$3)`,
             [name,email,hashed_password]
         )
+    }
+    async updateProfile(userId:number,name:string,bio?:string){
+        await pool.query(
+            `UPDATE users
+             SET name = COALESCE($1, name),
+                 bio = COALESCE($2, '')
+             WHERE id = $3`,
+            [name,bio,userId]
+          );
     }
 }
 

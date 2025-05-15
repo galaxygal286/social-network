@@ -34,4 +34,6 @@ export interface LoginCredentials {
   export interface UpdateProfileData {
     name: string
     bio?: string
+    profile_image:File | null
+    cover_image:File | null
   }

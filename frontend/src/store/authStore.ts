@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import {persist} from 'zustand/middleware'
-import { LoginCredentials, AuthResponse,User, RegisterData  } from '../types';
+import { LoginCredentials, AuthResponse,User, RegisterData, UpdateProfileData  } from '../types';
 import authService from '../services/authService'
 import useLoadingStore from './loadingStore'
 
@@ -12,6 +12,7 @@ interface AuthState {
     error: string | null
     login: (credentials: LoginCredentials) => Promise<void>
     register: (credentials: RegisterData) => Promise<boolean>
+    updateUser:(data:UpdateProfileData)=>void
     clearError: () => void
   }
 
@@ -62,7 +63,16 @@ const useAuthStore=create<AuthState>()(
           hideLoading()
         }
       },
-      
+      updateUser:(data:UpdateProfileData)=>{
+        set((state:AuthState)=>({
+          ...state,
+          user:{
+            ...state.user,
+            name:data.name,
+            bio:data.bio
+          }
+        }));
+      },
       
       clearError: () => set({ error: null }),
   }),
