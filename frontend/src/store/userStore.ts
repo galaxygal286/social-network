@@ -20,8 +20,8 @@ const useUserStore=create<UserState>(
         try {
             showLoading();
             set({ error: null });
-            await userService.updateProfile(data);
-            updateUser(data)
+            const userData=await userService.updateProfile(data);
+            updateUser(userData)
           } catch (error: any) {
             set({
               error: error.response?.data?.message || 'Failed to update profile',

@@ -11,7 +11,6 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = ({ label, ...props }) => {
   const [field, meta] = useField(props.name);
-  console.log("render "+props.name)
 
   return (
     <div>

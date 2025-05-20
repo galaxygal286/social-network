@@ -12,7 +12,7 @@ interface AuthState {
     error: string | null
     login: (credentials: LoginCredentials) => Promise<void>
     register: (credentials: RegisterData) => Promise<boolean>
-    updateUser:(data:UpdateProfileData)=>void
+    updateUser:(data:User)=>void
     clearError: () => void
   }
 
@@ -63,13 +63,15 @@ const useAuthStore=create<AuthState>()(
           hideLoading()
         }
       },
-      updateUser:(data:UpdateProfileData)=>{
+      updateUser:(data:User)=>{
         set((state:AuthState)=>({
           ...state,
           user:{
             ...state.user,
             name:data.name,
-            bio:data.bio
+            bio:data.bio,
+            profile_image_url:data.profile_image_url,
+            cover_image_url:data.cover_image_url
           }
         }));
       },

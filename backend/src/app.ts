@@ -16,6 +16,8 @@ app.use(express.urlencoded({extended:false}))
 app.use(cors())
 app.use(helmet())
 
+app.use('/uploads', express.static('uploads'));
+
 app.use('/api/auth',AuthRoutes)
 app.use('/api/users',UserRoutes)
 
