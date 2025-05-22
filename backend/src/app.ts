@@ -16,6 +16,10 @@ app.use(express.urlencoded({extended:false}))
 app.use(cors())
 app.use(helmet())
 
+app.use('/uploads', (req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    next();
+  });
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/auth',AuthRoutes)

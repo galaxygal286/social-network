@@ -50,24 +50,30 @@ const EditProfile = () => {
     const getCoverImage=()=>{
         if(coverImagePreviewUrl)
             return coverImagePreviewUrl
-        const origin=window.location.origin
-        return origin+"/uploads/"+user?.cover_image_url
+        if(user?.cover_image_url)
+            return import.meta.env.VITE_UPLOADS+"/"+user?.cover_image_url
     }
     const getProfileImage=()=>{
         if(profileImagePreviewUrl)
             return profileImagePreviewUrl
-        const origin=window.location.origin
-        return origin+"/uploads/"+user?.profile_image_url
+        if(user?.profile_image_url)
+            return import.meta.env.VITE_UPLOADS+"/"+user?.profile_image_url
+    }
+    const clear=()=>{
+        setProfileImage(null)
+        setCoverImage(null)
+        setProfileImagePreviewUrl(null)
+        setCoverImagePreviewUrl(null)
     }
 
     return <>
         <button onClick={() => setIsOpen(true)} className="bg-white font-bold rounded-full px-4 py-1.5 outline outline-gray-300 outline-offset-[-1px] hover:bg-gray-100 cursor-pointer">Edit profile</button>
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+        <Dialog open={isOpen} onClose={() => {setIsOpen(false);}} className="relative z-50">
             <div className="fixed inset-0 flex w-screen items-center justify-center p-4 bg-black/40 ">
                 <div className="max-w-[600px] max-h-[650px] border border-gray-100 rounded-xl bg-white w-full flex flex-col overflow-hidden">
                     <DialogTitle className="font-bold sticky top-0 p-4 flex justify-between items-center">
                         <div className="flex space-x-2 items-center">
-                            <button type="button" className="rounded-full p-2 hover:bg-gray-200 cursor-pointer" onClick={() => setIsOpen(false)}>
+                            <button type="button" className="rounded-full p-2 hover:bg-gray-200 cursor-pointer" onClick={() => {setIsOpen(false);clear();}}>
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
                             <span className="font-bold text-xl">Edit profile</span>

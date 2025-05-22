@@ -44,8 +44,8 @@ const Header=()=>{
                     <NexIcon className="w-20 h-20"/>
                 </Link>
                 <nav className="flex flex-col text-xl">
-                    {navItems.map((item)=>(<>
-                        <div className="py-1 flex">
+                    {navItems.map((item)=>(
+                        <div key={item.path} className="py-1 flex">
                             <NavLink className={activeLink} to={item.path}>
                                 <div className="flex items-center">
                                     {item.icon}
@@ -55,7 +55,7 @@ const Header=()=>{
                                 </div>
                             </NavLink>
                         </div>
-                    </>))}
+                    ))}
                 </nav>
             </div>
             <div>
