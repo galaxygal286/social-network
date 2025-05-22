@@ -6,6 +6,7 @@ import helmet from "helmet"
 import ErrorHandler from './middlewares/errorHandler'
 import AuthRoutes from "./routes/AuthRoutes"
 import UserRoutes from "./routes/UserRoutes"
+import PostRoutes from "./routes/PostRoutes"
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use('/api/auth',AuthRoutes)
 app.use('/api/users',UserRoutes)
+app.use('/api/posts',PostRoutes)
 
 app.get("/",(req,res)=>{
     res.json({message:"hello world"})
