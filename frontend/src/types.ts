@@ -48,6 +48,8 @@ export interface Post {
   user_id: string
   text: string
   created_at: string
+  user_name?: string
+  profile_image_url?: string
   likes_count: number
   comments_count: number
   post_image: string

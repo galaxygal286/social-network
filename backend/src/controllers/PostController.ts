@@ -23,6 +23,13 @@ const PostController = {
             text: createdPost?.text,
             post_image_url: createdPost?.post_image,
         })
+    }),
+    fetchPosts:asyncHandler(async (req:Request,res:Response)=>{
+        const userId=(req as CustomRequest).userId
+        const {page,limit}=req.query
+
+        const posts=await PostService.fetchPosts(userId,page,limit)
+        res.json(posts)
     })
 }
 

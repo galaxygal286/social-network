@@ -3,9 +3,10 @@ import clsx from 'clsx'
 import Layout from "../components/Layout"
 import CreatePost from "../components/CreatePost"
 import Post from "../components/Post"
-const posts:any=[0,0,0,0]
+import usePostStore from '../store/postStore'
 
 const HomePage=()=>{
+    const { posts } = usePostStore();
     return <>
         <Layout>
         <TabGroup>
@@ -38,7 +39,7 @@ const HomePage=()=>{
                     </div>
                     <div >
                         {posts.map((post:any)=><>
-                            <Post/>
+                            <Post data={post}/>
                         </>)}
                     </div>
                 </TabPanel>

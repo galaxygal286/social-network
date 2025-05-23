@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 import Layout from "../components/Layout"
 import { ArrowLeftIcon, CalendarDaysIcon } from "@heroicons/react/24/outline"
 import useAuthStore from "../store/authStore"

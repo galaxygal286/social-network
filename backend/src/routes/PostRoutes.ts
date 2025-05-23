@@ -1,24 +1,31 @@
-import {Router} from "express"
+import { Router } from "express"
 
 import PostController from "../controllers/PostController"
 import PostValidator from "../validators/PostValidator"
-import {ValidateRequest} from "../middlewares/validation"
+import { ValidateRequest } from "../middlewares/validation"
 import { Protect } from "../middlewares/auth"
 import { upload } from '../middlewares/upload';
 
 
-const router=Router()
+const router = Router()
 
 router.use(Protect)
 
 router.post(
-    '/',
-    upload.fields([
-        { name: 'post_image', maxCount: 1 },
-      ]),
-    PostValidator.createPost,
-    ValidateRequest,
-    PostController.createPost
+  '/',
+  upload.fields([
+    { name: 'post_image', maxCount: 1 },
+  ]),
+  PostValidator.createPost,
+  ValidateRequest,
+  PostController.createPost
+)
+
+router.get(
+  '/',
+  PostValidator.fetchPosts,
+  ValidateRequest,
+  PostController.fetchPosts
 )
 
 export default router
